@@ -322,8 +322,8 @@
           particles.draw(context, image);
         }
         function onResize() {
-          canvas.width = canvas.clientWidth;
-          canvas.height = canvas.clientHeight;
+          canvas.width = canvas.clientWidth / 2;
+          canvas.height = canvas.clientHeight / 2;
         }
         window.onresize = onResize;
         setTimeout(function () {

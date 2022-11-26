@@ -23,11 +23,75 @@
       -o-animation: anim 1.5s ease-in-out infinite;
       -moz-animation: anim 1.5s ease-in-out infinite;
     }
+    *{
+            font-family: 'Merienda', cursive;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+    main{
+            position: relative;
+            overflow: hidden;
+         
+        }
+    .zyc{
+      height: 200px;
+            background-color: rgb(0,0,0);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+    }
 
-    #canvas {
-      padding-left: 32%;
-      width: 38%;
-      height: 8%;
+    .txt {
+
+      color: rgb(255, 255, 255);
+      text-transform: uppercase;
+      font-size: 100px;
+      background-color: rgb(0, 0, 0);
+      user-select: none;
+
+    }
+
+    .txt::before {
+      content: "秦文坤";
+      position: absolute;
+      /*   text-shadow: 0 0 10px  rgb(255, 255, 255),
+           0 0 10px  rgb(255, 255, 255),
+           0 0 10px  rgb(255, 255, 255); */
+      filter: blur(3px);
+      mix-blend-mode: difference;
+    }
+
+    .txt2 {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, rgb(255, 0, 212), rgb(0, 119, 255), rgb(255, 187, 0), rgb(1, 255, 77));
+      mix-blend-mode: multiply;
+
+
+    }
+
+    .txt3 {
+      position: absolute;
+      top: -100%;
+      left: -100%;
+      right: 0;
+      bottom: 0;
+      background-image: radial-gradient(circle, white, black 30%);
+      background-size: 25% 25%;
+
+      mix-blend-mode: color-dodge;
+      animation: shine 3s linear infinite;
+
+    }
+
+    @keyframes shine {
+      100% {
+        transform: translate(50%, 50%);
+      }
     }
 
     #name {
@@ -133,8 +197,12 @@
 <body>
   <canvas id="pinkboard"></canvas>
   <!-- 在下面加名字 -->
-  <div id="name" style="color: blue;">
-    <canvas id="canvas"></canvas>
+  <div id="name" class="zyc">
+    <main>
+    <h1 class="txt">秦文坤</h1>
+    <h1 class="txt2"></h1>
+    <h1 class="txt3"></h1>
+    </main>
   </div>
 
   <script>
@@ -367,77 +435,6 @@
         render();
       }, 10);
     })(document.getElementById("pinkboard"));
-
-
-    // 字体
-
-    var canvas = document.getElementById('canvas');
-    var ctx = canvas.getContext('2d');
-    ctx.font = "35px fangsong";
-    ctx.fillStyle = "rgb(0, 0, 0)";
-    ctx.fillText("李艳华", 12, 50, 100);
-    var pix = ctx.getImageData(0, 0, 180, 35);
-    window.addEventListener('resize', canvasResize);
-
-    function canvasResize() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    }
-    canvasResize();
-    var cx = canvas.width / 2 - (180 * 5 / 2);
-    var cy = canvas.height / 2 - (35 * 5 / 2);
-    class ZycParticle {
-      constructor() {
-        this.arr = [];
-      }
-      init() {
-        for (let i = 0; i < pix.data.length / 4; i++) {
-          this.arr.push({
-            x: i % 180,
-            y: i / 180,
-            alpha: pix.data[i * 4 + 3],
-            mx: Math.random() * canvas.width,
-            my: Math.random() * canvas.height,
-            radius: Math.random() * 3,
-            speed: Math.random() * 40 + 40,
-            color: `rgba(${Math.random()*255}, ${Math.random()*255}, ${Math.random()*255},${pix.data[i*4+3]}`
-          })
-        }
-      }
-      draw() {
-        this.arr.forEach(item => {
-          ctx.beginPath();
-          ctx.fillStyle = item.color;
-          ctx.arc(item.mx, item.my, item.radius, 0, Math.PI * 2, false);
-          ctx.fill();
-        })
-      }
-      update() {
-        for (let i = 0; i < this.arr.length; i++) {
-          this.arr[i].mx = this.arr[i].mx + ((this.arr[i].x * 5 + cx) - this.arr[i].mx) / this.arr[i].speed;
-          this.arr[i].my = this.arr[i].my + ((this.arr[i].y * 5 + cy) - this.arr[i].my) / this.arr[i].speed;
-        }
-      }
-    }
-    const ZParticle = new ZycParticle();
-    ZParticle.init();
-
-    window.addEventListener('resize', function () {
-      ZParticle.arr = [];
-      ZParticle.init();
-      cx = canvas.width / 2 - (180 * 5 / 2);
-      cy = canvas.height / 2 - (35 * 5 / 2);
-    })
-
-    function step() {
-      ctx.fillStyle = "rgba(0,0,0,0.1)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ZParticle.draw();
-      ZParticle.update();
-
-      window.requestAnimationFrame(step);
-    }
-    window.requestAnimationFrame(step);
   </script>
 
 </body>

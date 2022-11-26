@@ -375,7 +375,7 @@
     var ctx = canvas.getContext('2d');
     ctx.font = "35px fangsong";
     ctx.fillStyle = "rgb(0, 0, 0)";
-    ctx.fillText("李艳华", 8, 50, 180);
+    ctx.fillText("李艳华", 12, 50, 100);
     var pix = ctx.getImageData(0, 0, 180, 35);
     window.addEventListener('resize', canvasResize);
 
@@ -385,7 +385,7 @@
     }
     canvasResize();
     var cx = canvas.width / 2 - (180 * 5 / 2);
-    var cy = canvas.height / 2 - (30 * 5 / 2);
+    var cy = canvas.height / 2 - (35 * 5 / 2);
     class ZycParticle {
       constructor() {
         this.arr = [];
@@ -426,7 +426,7 @@
       ZParticle.arr = [];
       ZParticle.init();
       cx = canvas.width / 2 - (180 * 5 / 2);
-      cy = canvas.height / 2 - (30 * 5 / 2);
+      cy = canvas.height / 2 - (35 * 5 / 2);
     })
 
     function step() {
